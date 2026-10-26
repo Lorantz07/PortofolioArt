@@ -17,6 +17,8 @@
   --radius-wobble: 14px 16px 13px 17px / 16px 13px 17px 14px;
   --bayangan-kartu: 0 2px 4px rgba(43, 53, 50, .08), 0 12px 24px -10px rgba(43, 53, 50, .16);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='460' viewBox='0 0 460 460'%3E%3Cg fill='none' stroke='%232b3532' stroke-opacity='.09' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 52 Q20 52 20 44 Q20 36 30 36 Q32 28 42 28 Q52 28 55 36 Q65 36 65 44 Q65 52 54 52 Z'/%3E%3Cpath transform='rotate(14 170 80)' d='M170 62 L174.5 73 L186 74 L177 81.5 L180 93 L170 86.5 L160 93 L163 81.5 L154 74 L165.5 73 Z'/%3E%3Cpath d='M328 58 Q334 52 340 58 Q346 66 338 72 Q328 79 322 70 Q316 59 326 52 Q340 44 350 54 Q358 64 350 74'/%3E%3Cg transform='rotate(-18 80 210)'%3E%3Cpath d='M66 232 L86 204 L91 207 L71 235 L65 236 Z'/%3E%3Cpath d='M86 204 L89 200 L94 203 L91 207'/%3E%3Cpath d='M65 236 L61 238 L63 232'/%3E%3C/g%3E%3Cg transform='rotate(12 350 200)'%3E%3Cpath d='M340 164 Q348 168 346 184 L334 184 Q332 168 340 164 Z'/%3E%3Cpath d='M334 184 L330 192 M346 184 L350 192 M338 184 Q341 189 342 184'/%3E%3Ccircle cx='340' cy='174' r='3'/%3E%3C/g%3E%3Cpath d='M154 320 Q162 312 170 320 T186 320 T202 320 T218 320'/%3E%3Ccircle cx='392' cy='316' r='4'/%3E%3Ccircle cx='404' cy='306' r='6'/%3E%3Ccircle cx='414' cy='320' r='3'/%3E%3Cpath transform='rotate(10 260 410)' d='M260 430 Q244 418 252 409 Q258 404 260 410 Q262 404 268 409 Q276 418 260 430 Z'/%3E%3Cpath transform='rotate(6 80 420)' d='M64 432 Q56 432 56 426 Q56 420 64 420 Q65 414 72 414 Q79 414 81 420 Q88 420 88 426 Q88 432 80 432 Z'/%3E%3C/g%3E%3C/svg%3E");
+  --cat-air: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='700' viewBox='0 0 900 700'%3E%3Cdefs%3E%3Cfilter id='k' x='-60%25' y='-60%25' width='220%25' height='220%25'%3E%3CfeGaussianBlur stdDeviation='45'/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx='690' cy='120' rx='210' ry='150' fill='%238ed0ee' opacity='.28' filter='url(%23k)'/%3E%3Cellipse cx='170' cy='560' rx='240' ry='170' fill='%23a8d5a2' opacity='.30' filter='url(%23k)'/%3E%3Cellipse cx='500' cy='420' rx='160' ry='120' fill='%238ed0ee' opacity='.16' filter='url(%23k)'/%3E%3Cellipse cx='780' cy='540' rx='170' ry='130' fill='%23a8d5a2' opacity='.22' filter='url(%23k)'/%3E%3Cellipse cx='420' cy='120' rx='150' ry='110' fill='%23a8d5a2' opacity='.16' filter='url(%23k)'/%3E%3C/svg%3E");
 }
 
 /* ---------- dasar ---------- */
@@ -210,6 +212,14 @@ html.js .coret.muncul path {
   min-height: min(calc(100svh - 70px), 780px);
   display: grid;
   align-content: center;
+  background-color: var(--kertas);
+  background-image:
+    var(--doodle),
+    var(--cat-air),
+    var(--grain);
+  background-size: 460px 460px, 100% 100%, auto;
+  background-position: 0 0, center, 0 0;
+  background-repeat: repeat, no-repeat, repeat;
 }
 .hero-dalam {
   max-width: 1080px;
@@ -479,7 +489,9 @@ html.js .anim-muncul.muncul {
 
 /* ---------- karya ---------- */
 .karya {
-  background: var(--kertas-2);
+  background-color: var(--kertas-2);
+  background-image: radial-gradient(rgba(43, 53, 50, .12) 1.3px, transparent 1.7px);
+  background-size: 22px 22px;
   border-top: 2px dashed rgba(43, 53, 50, .16);
   border-bottom: 2px dashed rgba(43, 53, 50, .16);
 }
@@ -586,6 +598,15 @@ html.js .anim-muncul.muncul {
 }
 
 /* ---------- kontak ---------- */
+.kontak {
+  background-color: var(--kertas);
+  background-image:
+    var(--cat-air),
+    var(--grain);
+  background-size: 130% auto, auto;
+  background-position: center 90%, 0 0;
+  background-repeat: no-repeat, repeat;
+}
 .tengah-kontak { max-width: 660px; text-align: center; }
 .tengah-kontak .judul-bagian { text-align: center; }
 .kontak-aksi {
