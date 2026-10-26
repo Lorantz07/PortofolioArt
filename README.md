@@ -63,18 +63,13 @@ menggantikannya. `images/asli/` tidak perlu di-upload — sudah diblokir `.gitig
 > `git init`, `git add .`, `git commit -m "Portofolio RusianArt"`,
 > hubungkan ke remote repo, lalu `git push -u origin main`.
 
-## Mengganti kontak (penting!)
+## Kontak
 
-Kontak di website masih **placeholder**. Buka `index.html`, cari tulisan
-`GANTI` (ada 3 tempat, di seksi KONTAK), lalu ubah:
-
-- `https://wa.me/6281234567890` → nomor WhatsApp asli (format 62xxx, tanpa `+`)
-- `mailto:halo@rusianart.id` → email asli
-- `https://instagram.com/rusianart` → username Instagram asli
-
-Setelah online, sebaiknya juga ganti baris `og:image` di bagian atas file
-dengan alamat lengkap (mis. `https://usernameanda.github.io/rusianart/images/profil.jpg`)
-agar pratinjau saat dibagikan lewat WhatsApp tampil rapi.
+Kontak website sudah terisi: WhatsApp (+62 838-9370-4733), email
+(arofikrosian@gmail.com), dan Instagram (@rosian.anwar). Jika suatu saat
+ingin mengganti, buka `index.html`, cari seksi `KONTAK`, lalu ubah tiga
+tautan tombol di sana. Pratinjau berbagi (og:image/og:url) sudah memakai
+alamat lengkap GitHub Pages.
 
 ## Menambah karya baru nantinya
 
