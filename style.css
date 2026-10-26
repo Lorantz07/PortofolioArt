@@ -612,7 +612,22 @@ html.js .anim-muncul.muncul {
 .kontak-aksi {
   display: grid;
   gap: 12px;
-  margin-top: 8px;
+  margin: 8px auto 0;
+  max-width: 360px;
+}
+.kontak-item .tombol {
+  width: 100%;
+  justify-content: center;
+}
+.kontak-item {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+.kontak-nilai {
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--tinta-lembut);
 }
 
 /* ---------- footer ---------- */
@@ -712,6 +727,7 @@ html.js .anim-muncul.muncul {
     grid-template-columns: repeat(3, auto);
     justify-content: center;
   }
+  .kontak-item .tombol { width: auto; }
 }
 
 @media (min-width: 1001px) {
