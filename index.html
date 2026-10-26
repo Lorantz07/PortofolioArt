@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>RusianArt — Pelukis &amp; Seniman</title>
+  <meta name="description" content="Portofolio Rusian: pelukis dan seniman. Sketsa pensil karakter, ilusi 3D di atas kertas, dan lettering penuh warna. Mantan art crew bagian artistik stasiun TV swasta.">
+  <meta name="theme-color" content="#faf7f0">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23faf7f0'/%3E%3Ctext%20x='32'%20y='43'%20font-family='cursive'%20font-size='34'%20font-weight='bold'%20fill='%232b3532'%20text-anchor='middle'%3ER%3C/text%3E%3Cpath%20d='M14%2052%20Q32%2046%2050%2052'%20stroke='%235f9e6e'%20stroke-width='4'%20fill='none'%20stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RusianArt — Pelukis &amp; Seniman">
+  <meta property="og:description" content="Sketsa pensil, ilusi 3D di atas kertas, dan lettering penuh warna.">
+  <!-- GANTI: setelah online, isi og:image dengan alamat lengkap, mis. https://usernameanda.github.io/rusianart/images/profil.jpg -->
+  <meta property="og:image" content="images/profil.jpg">
+</head>
+<body>
+  <a class="skip-link" href="#karya">Langsung ke galeri karya</a>
+
+  <header class="nav" id="nav">
+    <div class="nav-dalam">
+      <a class="logo" href="#beranda">
+        <svg class="logo-pensil" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4L17 4.2a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.4 19.4 4 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>RusianArt</span>
+      </a>
+      <nav class="menu" aria-label="Menu utama">
+        <a href="#beranda">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#karya">Karya</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="beranda">
+      <div class="hero-dalam">
+
+        <div class="hero-teks">
+          <p class="kicker">
+            <svg class="kicker-pensil" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4L17 4.2a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.4 19.4 4 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="currentColor" stroke-width="1.8"/></svg>
+            Portofolio Seni
+          </p>
+          <h1>RusianArt
+            <svg class="coret coret-nama" viewBox="0 0 230 16" aria-hidden="true"><path pathLength="1" d="M4 11 Q32 3 60 9 T116 9 T172 9 T226 7" fill="none" stroke="url(#gradCoret)" stroke-width="5" stroke-linecap="round"/></svg>
+          </h1>
+          <p class="hero-sub">Pelukis &amp; Seniman</p>
+          <p class="hero-intro">
+            Menggambar adalah cara saya bercerita — dari sketsa pensil karakter,
+            ilusi 3D yang "keluar" dari kertas, sampai lettering penuh warna.
+            Dulu sebagai <strong>art crew bagian artistik stasiun TV swasta</strong>,
+            kini karya-karya lahir dari meja kecil di rumah.
+          </p>
+          <div class="hero-aksi">
+            <a class="tombol tombol-utama" href="#karya">Lihat Karya</a>
+            <a class="tombol tombol-outline" href="#kontak">Kirim Pesan</a>
+          </div>
+        </div>
+
+        <div class="hero-panggung">
+          <div class="scene" id="scene" aria-hidden="true">
+            <div class="stage" id="stage">
+
+              <figure class="paper" style="--x:-170px;--y:-30px;--z:40px;--rz:-5deg;--ry:18deg;--h:175px;--d:.3s" data-title="Naruto & Kawan-Kawan">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-naruto.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper" style="--x:185px;--y:40px;--z:60px;--rz:-3deg;--ry:-15deg;--h:135px;--d:1.1s" data-title="Hiu & Ikan Kecil">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-hiu.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper" style="--x:-70px;--y:130px;--z:-80px;--rz:3deg;--ry:-12deg;--h:175px;--d:1.7s" data-title="Goku Terbang">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-goku-terbang.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper" style="--x:70px;--y:-150px;--z:-60px;--rz:4deg;--ry:10deg;--h:165px;--d:.8s" data-title="Spiderman Gantung">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-spiderman-gantung.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper paper--sembunyi" style="--x:250px;--y:-100px;--z:-130px;--rz:6deg;--ry:-20deg;--h:185px;--d:1.4s" data-title="Spiderman Mengayun">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-spiderman-ayun.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper paper--sembunyi" style="--x:-250px;--y:-120px;--z:-120px;--rz:-4deg;--ry:22deg;--h:185px;--d:2s" data-title="Goku Menembus Batu">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-goku-pukul.jpg" alt="" decoding="async"></span>
+              </figure>
+
+              <figure class="paper paper--depan" style="--x:0px;--y:-10px;--z:150px;--rz:2deg;--ry:0deg;--h:195px;--d:0s" data-title="Educative Creative Smart">
+                <span class="tape"></span>
+                <span class="paper-isi"><img src="images/karya-lettering.jpg" alt="" decoding="async"></span>
+              </figure>
+
+            </div>
+          </div>
+
+          <svg class="coret coret-lantai" viewBox="0 0 320 26" aria-hidden="true"><path pathLength="1" d="M14 20 Q80 6 160 14 T306 16" fill="none" stroke="#2b3532" stroke-opacity=".28" stroke-width="3.5" stroke-linecap="round"/></svg>
+
+          <p class="drag-hint" id="dragHint">
+            <svg viewBox="0 0 40 20" aria-hidden="true"><path d="M3 10 H30 M24 4 l7 6 -7 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Tarik kertasnya untuk memutar
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TENTANG ================= -->
+    <section class="tentang" id="tentang">
+      <div class="bagian-dalam tentang-dalam anim-muncul">
+        <div class="tentang-foto">
+          <figure class="foto-bingkai">
+            <img src="images/profil.jpg" alt="Rusian berfoto di depan beberapa karya lukisannya" decoding="async" loading="lazy" width="966" height="1288">
+            <figcaption>Di depan karya-karya di dinding rumah</figcaption>
+          </figure>
+        </div>
+
+        <div class="tentang-teks">
+          <h2 class="judul-bagian">
+            Tentang Rusian
+            <svg class="coret coret-kecil" viewBox="0 0 130 12" aria-hidden="true"><path pathLength="1" d="M3 8 Q26 2 50 7 T96 7 T127 6" fill="none" stroke="url(#gradCoret)" stroke-width="4.5" stroke-linecap="round"/></svg>
+          </h2>
+          <p>
+            Halo, saya <strong>Rusian</strong>. Sejak kecil, pensil sudah jadi sahabat saya —
+            dari coretan di buku tulis sampai sketsa rinci di atas kertas.
+            Bagi saya, menggambar bukan sekadar hobi, melainkan cara menikmati dunia.
+          </p>
+          <p>
+            Bertahun-tahun saya bekerja sebagai <strong>art crew bagian artistik
+            di sebuah stasiun TV swasta</strong> — menyiapkan elemen-elemen visual yang
+            menghidupkan tayangan. Di sanalah selera kreatif saya terasah: setiap warna,
+            bentuk, dan komposisi harus bisa "berbicara".
+          </p>
+          <p>
+            Kini saya melukis dan membuat karya dari rumah. Spesialisasi saya:
+            <strong>sketsa pensil karakter</strong>, <strong>ilusi 3D di atas kertas</strong>,
+            dan <strong>lettering penuh warna</strong>. Saya terbuka untuk pesanan, kolaborasi,
+            maupun pameran.
+          </p>
+          <ul class="cips" aria-label="Keahlian">
+            <li>Pensil 2B &amp; spidol</li>
+            <li>Ilusi 3D</li>
+            <li>Art crew TV</li>
+            <li>Terima pesanan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KARYA ================= -->
+    <section class="karya" id="karya">
+      <div class="bagian-dalam">
+        <h2 class="judul-bagian tengah anim-muncul">
+          Galeri Karya
+          <svg class="coret coret-kecil" viewBox="0 0 130 12" aria-hidden="true"><path pathLength="1" d="M3 8 Q26 2 50 7 T96 7 T127 6" fill="none" stroke="url(#gradCoret)" stroke-width="4.5" stroke-linecap="round"/></svg>
+        </h2>
+        <p class="sub-bagian tengah anim-muncul">Digambar tangan satu per satu — bukan hasil mesin. Klik karyanya untuk melihat lebih dekat.</p>
+
+        <div class="filter" role="group" aria-label="Saring kategori karya">
+          <button class="filter-btn aktif" type="button" data-filter="semua" aria-pressed="true">Semua</button>
+          <button class="filter-btn" type="button" data-filter="sketsa" aria-pressed="false">Sketsa</button>
+          <button class="filter-btn" type="button" data-filter="ilusi3d" aria-pressed="false">Ilusi 3D</button>
+          <button class="filter-btn" type="button" data-filter="lettering" aria-pressed="false">Lettering</button>
+        </div>
+
+        <div class="galeri" id="galeri">
+
+          <figure class="kartu anim-muncul" data-kategori="sketsa">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-naruto.jpg" data-title="Naruto & Kawan-Kawan" data-medium="Sketsa · Pensil di atas kertas">
+              <span class="kartu-gambar">
+                <img src="images/karya-naruto.jpg" alt="Sketsa pensil beberapa karakter anime Naruto di atas bebatuan melayang"
+                     loading="lazy" decoding="async" width="720" height="937">
+              </span>
+              <figcaption>
+                <h3>Naruto &amp; Kawan-Kawan</h3>
+                <p>Sketsa · Pensil di atas kertas</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="ilusi3d">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-spiderman-gantung.jpg" data-title="Spiderman Gantung" data-medium="Ilusi 3D · Pensil">
+              <span class="kartu-gambar">
+                <img src="images/karya-spiderman-gantung.jpg" alt="Gambar Spiderman yang tampak menggantung di tali laba-laba, dengan pensil asli menggantung di atas kertas sebagai bagian ilusinya"
+                     loading="lazy" decoding="async" width="720" height="761">
+              </span>
+              <figcaption>
+                <h3>Spiderman Gantung</h3>
+                <p>Ilusi 3D · Pensil</p>
+                <p class="kartu-catatan">Pensil asli ikut terfoto — justru itu kuncinya.</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="sketsa">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-hiu.jpg" data-title="Hiu & Ikan Kecil" data-medium="Sketsa · Pensil">
+              <span class="kartu-gambar">
+                <img src="images/karya-hiu.jpg" alt="Sketsa pensil hiu besar menghadap ikan kecil yang tampak ketakutan"
+                     loading="lazy" decoding="async" width="720" height="616">
+              </span>
+              <figcaption>
+                <h3>Hiu &amp; Ikan Kecil</h3>
+                <p>Sketsa · Pensil</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="sketsa">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-goku-terbang.jpg" data-title="Goku Terbang" data-medium="Sketsa · Pensil">
+              <span class="kartu-gambar">
+                <img src="images/karya-goku-terbang.jpg" alt="Sketsa pensil Goku kecil terbang memecahkan bunga besi"
+                     loading="lazy" decoding="async" width="720" height="761">
+              </span>
+              <figcaption>
+                <h3>Goku Terbang</h3>
+                <p>Sketsa · Pensil</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="ilusi3d">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-spiderman-ayun.jpg" data-title="Spiderman Mengayun" data-medium="Ilusi 3D · Pensil">
+              <span class="kartu-gambar">
+                <img src="images/karya-spiderman-ayun.jpg" alt="Gambar Spiderman mengayun dengan jaring, pensil dan pensil warna ikut terfoto sebagai bagian ilusinya"
+                     loading="lazy" decoding="async" width="525" height="744">
+              </span>
+              <figcaption>
+                <h3>Spiderman Mengayun</h3>
+                <p>Ilusi 3D · Pensil</p>
+                <p class="kartu-catatan">Pensil asli ikut terfoto — justru itu kuncinya.</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="sketsa">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-goku-pukul.jpg" data-title="Goku Menembus Batu" data-medium="Sketsa · Pensil">
+              <span class="kartu-gambar">
+                <img src="images/karya-goku-pukul.jpg" alt="Sketsa pensil Goku mengepulkan tangan menembus batu-batu yang pecah"
+                     loading="lazy" decoding="async" width="720" height="842">
+              </span>
+              <figcaption>
+                <h3>Goku Menembus Batu</h3>
+                <p>Sketsa · Pensil</p>
+              </figcaption>
+            </button>
+          </figure>
+
+          <figure class="kartu anim-muncul" data-kategori="lettering">
+            <button class="kartu-btn" type="button"
+              data-img="images/karya-lettering.jpg" data-title="Educative Creative Smart" data-medium="Lettering · Spidol papan tulis">
+              <span class="kartu-gambar">
+                <img src="images/karya-lettering.jpg" alt="Karya lettering penuh warna dengan tulisan Educative, Creative, Smart, dan Expressive"
+                     loading="lazy" decoding="async" width="720" height="862">
+              </span>
+              <figcaption>
+                <h3>Educative Creative Smart</h3>
+                <p>Lettering · Spidol papan tulis</p>
+              </figcaption>
+            </button>
+          </figure>
+
+        </div>
+
+        <p class="galeri-kosong" id="galeriKosong" hidden>Belum ada karya di kategori ini.</p>
+      </div>
+    </section>
+
+    <!-- ================= KONTAK ================= -->
+    <section class="kontak" id="kontak">
+      <div class="bagian-dalam tengah-kontak anim-muncul">
+        <h2 class="judul-bagian tengah">
+          Hubungi Rusian
+          <svg class="coret coret-kecil" viewBox="0 0 130 12" aria-hidden="true"><path pathLength="1" d="M3 8 Q26 2 50 7 T96 7 T127 6" fill="none" stroke="url(#gradCoret)" stroke-width="4.5" stroke-linecap="round"/></svg>
+        </h2>
+        <p class="sub-bagian tengah">
+          Pesan lukisan, sketsa, lettering, atau sekadar menyapa —
+          saya dengan senang hati membalas.
+        </p>
+
+        <div class="kontak-aksi">
+          <!-- GANTI: nomor WhatsApp asli (format internasional tanpa +) -->
+          <a class="tombol tombol-wa" href="https://wa.me/6281234567890" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.5-1.5-2-1.5-1 .8a4 4 0 0 1-2.3-2.3l.8-1-1.5-2-1.5 1.5z" fill="currentColor" stroke="none"/></svg>
+            WhatsApp
+          </a>
+          <!-- GANTI: alamat email asli -->
+          <a class="tombol tombol-email" href="mailto:halo@rusianart.id">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Email
+          </a>
+          <!-- GANTI: username Instagram asli -->
+          <a class="tombol tombol-ig" href="https://instagram.com/rusianart" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kaki">
+    <p>© <span id="tahun">2026</span> RusianArt — Pelukis &amp; Seniman</p>
+    <p class="kaki-hati">Dibuat dengan penuh kasih oleh keluarganya</p>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Pratinjau karya">
+    <div class="lb-isi">
+      <button class="lb-tutup" type="button" aria-label="Tutup pratinjau">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+      <img id="lbImg" src="" alt="">
+      <p class="lb-cap"><strong id="lbJudul"></strong><span id="lbMedium"></span></p>
+    </div>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gradCoret" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4a9fc7"/>
+        <stop offset="1" stop-color="#5f9e6e"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# foto asli tidak perlu ikut ke repository (versi ringan yang di-upload)
+images/asli/
+
+# berkas sistem
+Thumbs.db
+Desktop.ini
+.DS_Store
