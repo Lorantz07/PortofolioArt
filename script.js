@@ -20,6 +20,26 @@
   } catch (e) { /* biarkan normal */ }
   if (hemat) html.classList.add("mode-hemat");
 
+  /* ---------- layar pembuka ---------- */
+  var pembuka = document.getElementById("pembuka");
+  var mauLangsung = location.search.indexOf("langsung") > -1;
+  if (hemat || mauLangsung) {
+    // HP lemot / gerak minim / ?langsung: langsung masuk tanpa seremoni
+    html.classList.add("lompati-pembuka");
+  } else {
+    // kunci gulir selama koreografi pembuka (~1,4 dtk)
+    html.classList.add("kunci");
+    window.setTimeout(function () {
+      html.classList.remove("kunci");
+    }, 1450);
+    if (pembuka) {
+      pembuka.addEventListener("click", function () {
+        html.classList.add("lompati-pembuka");
+        html.classList.remove("kunci");
+      });
+    }
+  }
+
   /* ---------- tahun di footer ---------- */
   var tahun = document.getElementById("tahun");
   if (tahun) tahun.textContent = new Date().getFullYear();
