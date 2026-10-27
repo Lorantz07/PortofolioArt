@@ -280,6 +280,7 @@
     });
     document.querySelector(".lb-tutup").addEventListener("click", tutupLb);
     lb.addEventListener("click", function (e) { if (e.target === lb) tutupLb(); });
+    lb.addEventListener("cancel", tutupLb);
   }
 
   /* ---------- kemunculan elemen + coretan tergambar ---------- */
