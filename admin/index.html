@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#faf7f0">
+  <title>Meja Admin — RusianArt</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23faf7f0'/%3E%3Ctext%20x='32'%20y='43'%20font-family='cursive'%20font-size='34'%20font-weight='bold'%20fill='%232b3532'%20text-anchor='middle'%3ER%3C/text%3E%3Cpath%20d='M14%2052%20Q32%2046%2050%2052'%20stroke='%235f9e6e'%20stroke-width='4'%20fill='none'%20stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="admin">
+    <div class="admin-dalam">
+
+      <header class="admin-sampul">
+        <svg class="admin-pensil" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4L17 4.2a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.4 19.4 4 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="currentColor" stroke-width="1.8"/></svg>
+        <h1>Meja Admin</h1>
+        <p class="admin-sub">Meja khusus pemilik karya — tempat karya baru disiapkan sebelum dipajang.</p>
+      </header>
+
+      <!-- gudang belum diatur (alamat/kunci masih kosong) -->
+      <section class="kartu-admin" id="layar-atur" hidden>
+        <h2 class="kertas-judul">Gudang belum dipasang</h2>
+        <p>Alamat gudang masih kosong. Isi dua baris <code>GUDANG_URL</code> dan
+        <code>GUDANG_KUNCI</code> di berkas <code>admin/admin.js</code> (dan
+        <code>script.js</code> untuk galeri), lalu muat ulang halaman ini.
+        Langkah lengkapnya ada di <code>PANDUAN-GUDANG.md</code>.</p>
+      </section>
+
+      <!-- login -->
+      <section class="kartu-admin" id="layar-masuk" hidden>
+        <h2 class="kertas-judul">Masuk dulu, ya</h2>
+        <p class="admin-tetek">Halaman ini khusus pemilik karya. Pengunjung tidak perlu —
+        dan tidak akan bisa — masuk ke sini.</p>
+        <form id="form-masuk">
+          <label>Email
+            <input type="email" id="masuk-email" autocomplete="username" required>
+          </label>
+          <label>Sandi
+            <input type="password" id="masuk-sandi" autocomplete="current-password" required>
+          </label>
+          <button class="tombol tombol-utama" id="tombol-masuk" type="submit">Masuk</button>
+          <p class="admin-status" id="status-masuk" role="status"></p>
+        </form>
+      </section>
+
+      <!-- isi admin -->
+      <section id="layar-admin" hidden>
+        <div class="admin-baris-atas">
+          <p class="admin-halo" id="admin-halo">Selamat datang kembali 👋</p>
+          <button class="tombol-tips" id="tombol-keluar" type="button">Keluar</button>
+        </div>
+
+        <div class="kartu-admin kertas-selotip">
+          <span class="selotip" aria-hidden="true"></span>
+          <h2 class="kertas-judul">Tambah karya baru</h2>
+          <form id="form-tambah">
+            <label>Foto karya
+              <input type="file" id="tambah-foto" accept="image/*" required>
+            </label>
+            <img id="pratinjau" alt="Pratinjau foto yang dipilih" hidden>
+            <label>Judul karya
+              <input type="text" id="tambah-judul" maxlength="80" required placeholder="mis. Kucing Barongsai">
+            </label>
+            <label>Kategori <span class="kecil">(status — boleh pilih saran atau ketik baru)</span>
+              <input type="text" id="tambah-kategori" maxlength="40" required list="saran-kategori" placeholder="mis. Arsiran Pensil">
+            </label>
+            <datalist id="saran-kategori">
+              <option value="Sketsa"></option>
+              <option value="Ilusi 3D"></option>
+              <option value="Lettering"></option>
+            </datalist>
+            <label>Media <span class="kecil">(boleh dikosongkan)</span>
+              <input type="text" id="tambah-media" maxlength="60" placeholder="mis. Pensil di atas kertas">
+            </label>
+            <label>Coretan tangan <span class="kecil">(boleh dikosongkan)</span>
+              <input type="text" id="tambah-coretan" maxlength="80" placeholder="catatan kecil bergaya tulisan biru">
+            </label>
+            <button class="tombol tombol-utama" id="tombol-unggah" type="submit">Simpan ke galeri</button>
+            <p class="admin-status" id="status-tambah" role="status"></p>
+          </form>
+        </div>
+
+        <div class="admin-baris">
+          <h2 class="kertas-judul tanpa-jarak">Karya di gudang <span class="hitung" id="hitung-karya"></span></h2>
+          <button class="tombol-tips" id="tombol-seed" type="button">Unggah 7 karya awal</button>
+        </div>
+        <ul class="daftar-karya" id="daftar-karya"></ul>
+        <p class="admin-status" id="status-daftar" role="status"></p>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="admin.js" defer></script>
+</body>
+</html>
