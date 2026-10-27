@@ -20,6 +20,16 @@
   } catch (e) { /* biarkan normal */ }
   if (hemat) html.classList.add("mode-hemat");
 
+  /* =========================================================
+     GUDANG KARYA (Supabase) — isi dua baris di bawah setelah
+     gudang dibuat (lihat PANDUAN-GUDANG.md). Bila dibiarkan
+     kosong, galeri memakai karya bawaan di index.html.
+     ========================================================= */
+  var GUDANG_URL = "https://yqlexaetlxhdcyjwjdwd.supabase.co";
+  var GUDANG_KUNCI = "sb_publishable_4aW5cToMcJL1rnWoj3FYAA_Xbz2rxlK";
+  // kalau kelak alamat ditempel lengkap dengan /rest/v1/, bagian itu dibuang otomatis:
+  GUDANG_URL = GUDANG_URL.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
+
   /* ---------- layar pembuka ---------- */
   var pembuka = document.getElementById("pembuka");
   var mauLangsung = location.search.indexOf("langsung") > -1;
@@ -180,8 +190,11 @@
   }
 
   /* ---------- kartu karya: efek miring mengikuti kursor ---------- */
-  if (!hemat && window.matchMedia("(pointer: fine)").matches) {
+  function pasangTilt() {
+    if (hemat || !window.matchMedia("(pointer: fine)").matches) return;
     Array.prototype.forEach.call(document.querySelectorAll(".kartu"), function (kartu) {
+      if (kartu.dataset.tilt) return;   // jangan dipasang dua kali
+      kartu.dataset.tilt = "1";
       kartu.addEventListener("pointermove", function (e) {
         if (e.pointerType !== "mouse") return;
         var r = kartu.getBoundingClientRect();
@@ -197,28 +210,48 @@
     });
   }
 
-  /* ---------- saring kategori karya ---------- */
-  var tombolFilter = Array.prototype.slice.call(document.querySelectorAll(".filter-btn"));
-  var kartuSemua = Array.prototype.slice.call(document.querySelectorAll(".kartu"));
+  /* =========================================================
+     GALERI KARYA
+     Sumber data: kartu statis di index.html (cadangan yang
+     selalu siap) + gudang Supabase bila terpasang.
+     ========================================================= */
+  var galeriEl = document.getElementById("galeri");
+  var filterEl = document.getElementById("filter");
   var pesanKosong = document.getElementById("galeriKosong");
 
-  tombolFilter.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      tombolFilter.forEach(function (b) {
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function slug(s) {
+    return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  }
+
+  /* --- saring kategori: delegasi, tetap hidup setelah galeri digambar ulang --- */
+  if (filterEl) {
+    filterEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      Array.prototype.forEach.call(filterEl.querySelectorAll(".filter-btn"), function (b) {
         var aktif = b === btn;
         b.classList.toggle("aktif", aktif);
         b.setAttribute("aria-pressed", String(aktif));
       });
-      var f = btn.dataset.filter;
-      var terlihat = 0;
-      kartuSemua.forEach(function (k) {
-        var cocok = f === "semua" || k.dataset.kategori === f;
-        k.classList.toggle("pindah", !cocok);
-        if (cocok) terlihat++;
-      });
-      if (pesanKosong) pesanKosong.hidden = terlihat > 0;
+      saring(btn.dataset.filter);
     });
-  });
+  }
+  function saring(f) {
+    if (!galeriEl) return;
+    var terlihat = 0;
+    Array.prototype.forEach.call(galeriEl.querySelectorAll(".kartu"), function (k) {
+      var cocok = f === "semua" || k.dataset.kategori === f;
+      k.classList.toggle("pindah", !cocok);
+      if (cocok) terlihat++;
+    });
+    if (pesanKosong) pesanKosong.hidden = terlihat > 0;
+  }
+  pasangTilt();
 
   /* ---------- lightbox pratinjau karya ---------- */
   var lb = document.getElementById("lightbox");
@@ -232,31 +265,94 @@
     document.body.style.overflow = "";
   }
 
-  if (lb && lbImg) {
-    Array.prototype.forEach.call(document.querySelectorAll(".kartu-btn"), function (btn) {
-      btn.addEventListener("click", function () {
-        lbImg.src = btn.dataset.img;
-        lbImg.alt = btn.querySelector("img") ? btn.querySelector("img").alt : btn.dataset.title;
-        lbJudul.textContent = btn.dataset.title;
-        lbMedium.textContent = btn.dataset.medium;
-        if (typeof lb.showModal === "function") { lb.showModal(); }
-        else { lb.setAttribute("open", ""); }
-        document.body.style.overflow = "hidden";
-      });
+  if (lb && lbImg && galeriEl) {
+    galeriEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".kartu-btn");
+      if (!btn) return;
+      lbImg.src = btn.dataset.img;
+      var imgKartu = btn.querySelector("img");
+      lbImg.alt = imgKartu ? imgKartu.alt : btn.dataset.title;
+      lbJudul.textContent = btn.dataset.title;
+      lbMedium.textContent = btn.dataset.medium;
+      if (typeof lb.showModal === "function") { lb.showModal(); }
+      else { lb.setAttribute("open", ""); }
+      document.body.style.overflow = "hidden";
     });
     document.querySelector(".lb-tutup").addEventListener("click", tutupLb);
     lb.addEventListener("click", function (e) { if (e.target === lb) tutupLb(); });
   }
 
   /* ---------- kemunculan elemen + coretan tergambar ---------- */
+  var pengamatMuncul = null;
   if ("IntersectionObserver" in window) {
-    var muncul = new IntersectionObserver(function (en) {
+    pengamatMuncul = new IntersectionObserver(function (en) {
       en.forEach(function (x) {
-        if (x.isIntersecting) { x.target.classList.add("muncul"); muncul.unobserve(x.target); }
+        if (x.isIntersecting) { x.target.classList.add("muncul"); pengamatMuncul.unobserve(x.target); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    document.querySelectorAll(".anim-muncul, .coret").forEach(function (el) { muncul.observe(el); });
-  } else {
-    document.querySelectorAll(".anim-muncul, .coret").forEach(function (el) { el.classList.add("muncul"); });
+  }
+  function amatiMuncul() {
+    var sasaran = document.querySelectorAll(".anim-muncul:not(.muncul), .coret:not(.muncul)");
+    Array.prototype.forEach.call(sasaran, function (el) {
+      if (pengamatMuncul) pengamatMuncul.observe(el);
+      else el.classList.add("muncul");
+    });
+  }
+  amatiMuncul();
+
+  /* ---------- gudang karya (Supabase) ----------
+     Diambil sekali saat halaman dibuka. Berhasil & berisi →
+     galeri digambar ulang dari gudang (chips ikut mengikuti).
+     Gagal / belum diisi → kartu bawaan tetap tampil apa adanya. */
+  if (galeriEl && GUDANG_URL && GUDANG_KUNCI) {
+    var URL_FOTO = GUDANG_URL.replace(/\/+$/, "") + "/storage/v1/object/public/foto-karya/";
+
+    function ambilGudang() {
+      fetch(GUDANG_URL.replace(/\/+$/, "") + "/rest/v1/karya?select=*&order=dibuat.asc", {
+        headers: { apikey: GUDANG_KUNCI }
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      }).then(function (rows) {
+        if (rows && rows.length) renderGaleri(rows);
+      }).catch(function () { /* gudang tak terjangkau → kartu bawaan tetap tampil */ });
+    }
+
+    function renderGaleri(rows) {
+      galeriEl.innerHTML = rows.map(buatKartu).join("");
+      gambarChips(rows);
+      saring("semua");
+      pasangTilt();
+      pasangCadangan();
+      amatiMuncul();
+    }
+
+    function buatKartu(k) {
+      var media = k.media ? k.kategori + " · " + k.media : k.kategori;
+      var url = URL_FOTO + k.foto;
+      var dim = k.lebar && k.tinggi ? ' width="' + esc(k.lebar) + '" height="' + esc(k.tinggi) + '"' : "";
+      return '<figure class="kartu anim-muncul" data-kategori="' + esc(slug(k.kategori)) + '">' +
+        '<button class="kartu-btn" type="button" data-img="' + esc(url) + '" data-title="' + esc(k.judul) + '" data-medium="' + esc(media) + '">' +
+        '<span class="kartu-gambar"><img src="' + esc(url) + '" alt="Karya ' + esc(k.judul) + '" loading="lazy" decoding="async"' + dim + "></span>" +
+        "<figcaption><h3>" + esc(k.judul) + "</h3><p>" + esc(media) + "</p>" +
+        (k.coretan ? '<p class="kartu-catatan">' + esc(k.coretan) + "</p>" : "") +
+        "</figcaption></button></figure>";
+    }
+
+    function gambarChips(rows) {
+      if (!filterEl) return;
+      var ada = {}, urut = [];
+      rows.forEach(function (k) {
+        var s = slug(k.kategori);
+        if (s && !ada[s]) { ada[s] = k.kategori; urut.push(s); }
+      });
+      filterEl.innerHTML =
+        '<button class="filter-btn aktif" type="button" data-filter="semua" aria-pressed="true">Semua</button>' +
+        urut.map(function (s) {
+          return '<button class="filter-btn" type="button" data-filter="' + esc(s) + '" aria-pressed="false">' + esc(ada[s]) + "</button>";
+        }).join("");
+    }
+
+    ambilGudang();
   }
 })();
