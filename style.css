@@ -761,7 +761,7 @@ html.mode-hemat .tape,
 html.mode-hemat .drag-hint {
   animation: none;
 }
-html.mode-hemat .stage { transform: rotateX(10deg) rotateY(-14deg); }
+html.mode-hemat .stage { transform: rotateX(9deg) rotateY(-16deg); }
 
 /* ---------- hormati preferensi gerak minim ---------- */
 @media (prefers-reduced-motion: reduce) {
