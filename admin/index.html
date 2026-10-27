@@ -21,9 +21,26 @@
     <div class="admin-dalam">
 
       <header class="admin-sampul">
-        <svg class="admin-pensil" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-4L17 4.2a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.4 19.4 4 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="currentColor" stroke-width="1.8"/></svg>
-        <h1>Meja Admin</h1>
-        <p class="admin-sub">Meja khusus pemilik karya — tempat karya baru disiapkan sebelum dipajang.</p>
+        <h1 class="tersembunyi">Meja Admin</h1>
+        <svg class="admin-ttd" viewBox="0 0 300 100" aria-hidden="true">
+          <path pathLength="1" d="M14 88 L14 36 Q28 30 38 40 Q44 48 34 55 L18 55 L42 88"/>
+          <path pathLength="1" d="M52 50 L52 72 Q53 81 60 81 Q67 81 67 72 L67 50 L67 79"/>
+          <path pathLength="1" d="M90 58 Q78 55 77 63 Q76 70 84 70 Q93 71 92 79 Q90 85 78 82"/>
+          <path pathLength="1" d="M102 52 L101 82"/>
+          <path pathLength="1" d="M100 40 Q102 38 104 40 Q102 42 100 40"/>
+          <path pathLength="1" d="M128 60 Q112 58 112 70 Q112 82 122 81 Q128 80 129 72 L128 60 L128 80"/>
+          <path pathLength="1" d="M140 82 L140 54 Q141 58 148 56 Q156 55 157 68 L157 82"/>
+          <path pathLength="1" d="M170 84 L183 35 L188 34 L200 84"/>
+          <path pathLength="1" d="M177 66 L194 65"/>
+          <path pathLength="1" d="M210 82 L210 54 Q210 58 216 54 Q222 52 223 58"/>
+          <path pathLength="1" d="M236 40 L235 74 Q235 82 243 81 Q246 80 248 77"/>
+          <path pathLength="1" d="M228 52 L246 50"/>
+        </svg>
+        <div class="stempel" aria-hidden="true">
+          <span>meja khusus</span>
+          <strong>khusus pemilik karya</strong>
+        </div>
+        <p class="admin-sub">Tempat karya baru disiapkan sebelum dipajang — pengunjung hanya melihat hasilnya.</p>
       </header>
 
       <!-- gudang belum diatur (alamat/kunci masih kosong) -->
@@ -44,7 +61,8 @@
           <label>Email
             <input type="email" id="masuk-email" autocomplete="username" required>
           </label>
-          <label>Sandi
+          <label>
+            <span class="label-baris">Sandi <span class="catatan-margin">kunci meja gambar</span></span>
             <input type="password" id="masuk-sandi" autocomplete="current-password" required>
           </label>
           <button class="tombol tombol-utama" id="tombol-masuk" type="submit">Masuk</button>
@@ -54,6 +72,10 @@
 
       <!-- isi admin -->
       <section id="layar-admin" hidden>
+        <div class="stiker-jalur">
+          <span class="stiker stiker-hijau" id="stiker-jumlah">memuat…</span>
+          <span class="stiker stiker-biru" id="stiker-terakhir" hidden></span>
+        </div>
         <div class="admin-baris-atas">
           <p class="admin-halo" id="admin-halo">Selamat datang kembali 👋</p>
           <button class="tombol-tips" id="tombol-keluar" type="button">Keluar</button>
@@ -63,14 +85,17 @@
           <span class="selotip" aria-hidden="true"></span>
           <h2 class="kertas-judul">Tambah karya baru</h2>
           <form id="form-tambah">
-            <label>Foto karya
+            <label>
+              <span class="label-baris">Foto karya <span class="catatan-margin">tempel fotonya di sini <svg class="panah" viewBox="0 0 26 14" aria-hidden="true"><path d="M24 2 Q10 3 5 10 M5 10 l6.5 -2.5 M5 10 l1.5 -6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
               <input type="file" id="tambah-foto" accept="image/*" required>
             </label>
             <img id="pratinjau" alt="Pratinjau foto yang dipilih" hidden>
-            <label>Judul karya
+            <label>
+              <span class="label-baris">Judul karya <span class="catatan-margin">kasih judul yang hangat</span></span>
               <input type="text" id="tambah-judul" maxlength="80" required placeholder="mis. Kucing Barongsai">
             </label>
-            <label>Kategori <span class="kecil">(status — boleh pilih saran atau ketik baru)</span>
+            <label>
+              <span class="label-baris">Kategori <span class="catatan-margin">status — bebas ketik baru!</span></span>
               <input type="text" id="tambah-kategori" maxlength="40" required list="saran-kategori" placeholder="mis. Arsiran Pensil">
             </label>
             <datalist id="saran-kategori">
@@ -78,10 +103,12 @@
               <option value="Ilusi 3D"></option>
               <option value="Lettering"></option>
             </datalist>
-            <label>Media <span class="kecil">(boleh dikosongkan)</span>
+            <label>
+              <span class="label-baris">Media <span class="catatan-margin">detail bahan — boleh kosong</span></span>
               <input type="text" id="tambah-media" maxlength="60" placeholder="mis. Pensil di atas kertas">
             </label>
-            <label>Coretan tangan <span class="kecil">(boleh dikosongkan)</span>
+            <label>
+              <span class="label-baris">Coretan tangan <span class="catatan-margin">tulisan biru kecil — boleh kosong</span></span>
               <input type="text" id="tambah-coretan" maxlength="80" placeholder="catatan kecil bergaya tulisan biru">
             </label>
             <button class="tombol tombol-utama" id="tombol-unggah" type="submit">Simpan ke galeri</button>
@@ -93,12 +120,40 @@
           <h2 class="kertas-judul tanpa-jarak">Karya di gudang <span class="hitung" id="hitung-karya"></span></h2>
           <button class="tombol-tips" id="tombol-seed" type="button">Unggah 7 karya awal</button>
         </div>
+        <p class="peringatan-seed" id="peringatan-seed" hidden>Galeri pengunjung saat ini menampilkan karya gudang saja — unggah 7 karya awal supaya karya lama ikut tampil.</p>
         <ul class="daftar-karya" id="daftar-karya"></ul>
+        <div class="meja-kosong" id="meja-kosong" hidden>
+          <svg viewBox="0 0 120 92" aria-hidden="true">
+            <g fill="none" stroke="#2b3532" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M60 16 L36 86 M60 16 L84 86 M60 22 L60 44"/>
+              <path d="M54 10 Q60 4 66 10"/>
+              <path d="M28 86 L44 86 M76 86 L92 86"/>
+            </g>
+            <path d="M40 24 L80 20 L82 54 L42 58 Z M46 58 L76 56" fill="none" stroke="#4a9fc7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M52 46 Q56 36 60 46 M66 42 Q69 36 72 42" fill="none" stroke="#5f9e6e" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p>meja masih terlalu rapi… mulai menggambar!</p>
+        </div>
         <p class="admin-status" id="status-daftar" role="status"></p>
       </section>
 
     </div>
   </main>
+
+  <dialog id="dialog-konfirmasi" class="dialog-konfirmasi" aria-label="Pertanyaan konfirmasi">
+    <div class="dk-isi">
+      <svg class="dk-gambar" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="16.5" fill="none" stroke="#b6543f" stroke-width="2.4" stroke-dasharray="4 5" stroke-linecap="round"/>
+        <path d="M20 11 v11" fill="none" stroke="#b6543f" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="20" cy="27.5" r="1.9" fill="#b6543f"/>
+      </svg>
+      <p class="dk-teks" id="dkTeks"></p>
+      <div class="dk-aksi">
+        <button class="tombol tombol-bahaya" id="dkYa" type="button">Ya, lanjut</button>
+        <button class="tombol-tips" id="dkTidak" type="button">Batal</button>
+      </div>
+    </div>
+  </dialog>
 
   <script src="admin.js" defer></script>
 </body>
