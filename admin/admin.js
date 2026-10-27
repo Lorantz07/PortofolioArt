@@ -55,6 +55,43 @@
     var b = $(id);
     if (b) b.disabled = !!sibuk;
   }
+  function formatWaktu(iso) {
+    try {
+      var d = new Date(iso);
+      var kini = new Date();
+      var awalHari = new Date(kini.getFullYear(), kini.getMonth(), kini.getDate()).getTime();
+      var t = d.getTime();
+      if (t >= awalHari) return "hari ini";
+      if (t >= awalHari - 86400000) return "kemarin";
+      return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "short" }).format(d);
+    } catch (e) { return ""; }
+  }
+
+  /* ---------- dialog konfirmasi (pengganti confirm bawaan) ---------- */
+  var dk = $("dialog-konfirmasi");
+  var janjiKonfirmasi = null;
+
+  function tanya(teks, labelYa) {
+    return new Promise(function (selesai) {
+      $("dkTeks").textContent = teks;
+      $("dkYa").textContent = labelYa || "Ya, lanjut";
+      janjiKonfirmasi = selesai;
+      if (typeof dk.showModal === "function") { dk.showModal(); }
+      else { dk.setAttribute("open", ""); }
+      $("dkTidak").focus();
+    });
+  }
+  function jawab(hasil) {
+    if (typeof dk.close === "function") { if (dk.open) dk.close(); }
+    else { dk.removeAttribute("open"); }
+    if (janjiKonfirmasi) { var s = janjiKonfirmasi; janjiKonfirmasi = null; s(hasil); }
+  }
+  if (dk) {
+    $("dkYa").addEventListener("click", function () { jawab(true); });
+    $("dkTidak").addEventListener("click", function () { jawab(false); });
+    dk.addEventListener("click", function (e) { if (e.target === dk) jawab(false); });
+    dk.addEventListener("cancel", function () { jawab(false); });
+  }
 
   /* ---------- sesi login ---------- */
   var sesi = null;
@@ -147,21 +184,49 @@
     });
 
     $("hitung-karya").textContent = rows.length ? "(" + rows.length + ")" : "";
+    isiSaranKategori();
+
+    /* stiker statistik */
+    var stJumlah = $("stiker-jumlah");
+    var stTerakhir = $("stiker-terakhir");
+    if (stJumlah) stJumlah.textContent = rows.length + " karya di gudang";
+    if (stTerakhir) {
+      if (rows.length && rows[rows.length - 1].dibuat) {
+        stTerakhir.textContent = "ditambah terakhir: " + formatWaktu(rows[rows.length - 1].dibuat);
+        stTerakhir.hidden = false;
+      } else {
+        stTerakhir.hidden = true;
+      }
+    }
+
+    /* karya bawaan sudah terunggah? (untuk peringatan lembut) */
+    var sudahSeed = rows.some(function (k) {
+      var j = (k.judul || "").toLowerCase();
+      return KARYA_AWAL.some(function (a) { return a.judul.toLowerCase() === j; });
+    });
+    var pringatan = $("peringatan-seed");
+    if (pringatan) pringatan.hidden = rows.length === 0 || sudahSeed;
+
+    /* kondisi kosong */
+    var meja = $("meja-kosong");
+    if (meja) meja.hidden = rows.length > 0;
     if (!rows.length) {
       $("daftar-karya").innerHTML = "";
-      status("status-daftar", "Gudang masih kosong — mulai dengan tombol \u201cUnggah 7 karya awal\u201d di atas.", "");
+      status("status-daftar", "", "");
       return;
     }
+
     $("daftar-karya").innerHTML = rows.map(function (k) {
       var media = k.media ? k.kategori + " · " + k.media : k.kategori;
       return '<li class="baris-karya">' +
+        '<span class="selotip-varian" aria-hidden="true"></span>' +
         '<img src="' + esc(URL_FOTO + k.foto) + '" alt="" loading="lazy" decoding="async">' +
         '<div class="bk-teks"><b>' + esc(k.judul) + "</b><span>" + esc(media) + "</span></div>" +
-        '<button class="tombol-hapus" type="button" data-id="' + esc(k.id) + '" data-foto="' + esc(k.foto) + '">hapus</button>' +
+        '<button class="tombol-hapus" type="button" data-id="' + esc(k.id) + '" data-foto="' + esc(k.foto) + '" aria-label="Hapus karya ' + esc(k.judul) + '">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> hapus</button>' +
         "</li>";
     }).join("");
     status("status-daftar", "", "");
-    isiSaranKategori();
   }
 
   function muatDaftar() {
@@ -184,8 +249,9 @@
   });
 
   function hapusKarya(id, foto) {
-    if (!window.confirm("Hapus karya ini dari galeri?")) return;
-    tokenSegar().then(function (token) {
+    tanya("Hapus karya ini? Kartunya juga hilang dari galeri pengunjung.", "Ya, hapus").then(function (ya) {
+      if (!ya) return;
+      tokenSegar().then(function (token) {
       return fetch(DASAR + "/storage/v1/object/foto-karya/" + encodeURIComponent(foto), {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token }
@@ -204,6 +270,7 @@
         muatDaftar();
       }).catch(function (err) {
         status("status-daftar", err && err.message ? err.message : "Gagal menghapus — coba lagi.", "gagal");
+      });
       });
   }
 
@@ -366,10 +433,12 @@
         status("status-daftar", "Semua karya awal sudah ada di gudang ✔", "");
         return;
       }
-      if (!window.confirm("Unggah " + sisa.length + " karya bawaan ke gudang sekarang?")) return;
-      seedBerjalan = true;
-      tombol("tombol-seed", true);
-      prosesSeed(sisa, 0);
+      tanya("Unggah " + sisa.length + " karya bawaan ke gudang sekarang?", "Ya, unggah").then(function (ya) {
+        if (!ya) return;
+        seedBerjalan = true;
+        tombol("tombol-seed", true);
+        prosesSeed(sisa, 0);
+      });
     });
   });
 
@@ -400,9 +469,10 @@
     }).catch(function (err) {
       seedBerjalan = false;
       tombol("tombol-seed", false);
-      status("status-daftar", err && err.message
-        ? err.message + " (batalkan di \u201c" + k.judul + "\u201d — jalankan lagi untuk melanjutkan.)"
-        : "Gagal — jalankan tombol ini lagi untuk melanjutkan.", "gagal");
+      var pesan = (err && err.message === "Failed to fetch")
+        ? "Tombol ini hanya bisa jalan dari website yang sudah online (bukan dari berkas di komputer). Buka alamat admin di GitHub Pages, lalu ulangi."
+        : (err && err.message ? err.message : "Gagal — jalankan tombol ini lagi untuk melanjutkan.");
+      status("status-daftar", pesan + " (berhenti saat \u201c" + k.judul + "\u201d — yang sudah masuk tidak diulang.)", "gagal");
     });
   }
 
