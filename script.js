@@ -9,16 +9,17 @@
   var html = document.documentElement;
   html.classList.add("js");
 
-  var hemat = false;
+  var hemat = false;      // perangkat lemah: hemat data / inti & RAM kecil
+  var gerakMinim = false; // pilihan aksesibilitas: "kurangi gerakan"
   try {
     var core = navigator.hardwareConcurrency || 8;
     var mem = navigator.deviceMemory || 8;
-    var gerakMinim = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    gerakMinim = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var hematData = navigator.connection && (navigator.connection.saveData ||
       /(^|-)2g/.test(navigator.connection.effectiveType || ""));
-    hemat = gerakMinim || hematData || core <= 4 || mem <= 4;
+    hemat = hematData || core <= 4 || mem <= 4;
   } catch (e) { /* biarkan normal */ }
-  if (hemat) html.classList.add("mode-hemat");
+  if (hemat || gerakMinim) html.classList.add("mode-hemat");
 
   /* =========================================================
      GUDANG KARYA (Supabase) — isi dua baris di bawah setelah
@@ -33,8 +34,8 @@
   /* ---------- layar pembuka ---------- */
   var pembuka = document.getElementById("pembuka");
   var mauLangsung = location.search.indexOf("langsung") > -1;
-  if (hemat || mauLangsung) {
-    // HP lemot / gerak minim / ?langsung: langsung masuk tanpa seremoni
+  if (gerakMinim || mauLangsung) {
+    // hormati "kurangi gerakan" / ?langsung: langsung masuk tanpa seremoni
     html.classList.add("lompati-pembuka");
   } else {
     // kunci gulir selama koreografi pembuka (~1,4 dtk)
@@ -104,7 +105,7 @@
   var stage = document.getElementById("stage");
   var hint = document.getElementById("dragHint");
 
-  if (scene && stage && !hemat) {
+  if (scene && stage) {
     var ry = -16, rx = 9;        // sudut saat ini
     var tRy = -16, tRx = 9;      // sudut target
     var vel = 0;                 // kecepatan lempar (inertia)
@@ -113,7 +114,7 @@
     var interaksiTerakhir = 0;
     var parX = 0, tParX = 0;     // parallax mouse
     var parY = 0, tParY = 0;
-    var jalan = true;            // loop hidup?
+    var jalan = false;           // loop mulai tidur — dibangunkan saat perlu
 
     stage.classList.add("aktif-3d");
 
@@ -128,15 +129,27 @@
         tRy += vel;                 // lemparan
         vel *= 0.93;
         if (Math.abs(vel) < 0.01) vel = 0;
-        // berputar pelan saat dibiarkan
-        if (!vel && performance.now() - interaksiTerakhir > 1800) tRy += 0.055;
+        // berputar pelan saat dibiarkan — hanya perangkat yang kekuatannya longgar
+        if (!hemat && !vel && performance.now() - interaksiTerakhir > 1800) tRy += 0.055;
       }
       ry += (tRy - ry) * 0.09;
       rx += (tRx - rx) * 0.09;
       parX += (tParX - parX) * 0.06;
       parY += (tParY - parY) * 0.06;
       terapkan();
+
+      /* tidur total saat semuanya tenang — nol beban saat diam */
+      if (!tarik && !vel &&
+          Math.abs(tRy - ry) < 0.02 && Math.abs(tRx - rx) < 0.02 &&
+          Math.abs(tParX - parX) < 0.02 && Math.abs(tParY - parY) < 0.02) {
+        jalan = false;
+        return;
+      }
       requestAnimationFrame(putaran);
+    }
+
+    function bangun() {
+      if (!jalan) { jalan = true; requestAnimationFrame(putaran); }
     }
 
     scene.addEventListener("pointerdown", function (e) {
@@ -147,6 +160,7 @@
       if (scene.setPointerCapture) {
         try { scene.setPointerCapture(e.pointerId); } catch (err) {}
       }
+      bangun();
     });
     scene.addEventListener("pointermove", function (e) {
       if (!tarik) return;
@@ -156,6 +170,7 @@
       tRx = Math.max(-22, Math.min(22, tRx - dy * 0.16));
       vel = dx * 0.12;
       interaksiTerakhir = performance.now();
+      bangun();
     });
     function lepas() { tarik = false; interaksiTerakhir = performance.now(); }
     scene.addEventListener("pointerup", lepas);
@@ -168,14 +183,15 @@
         var r = scene.getBoundingClientRect();
         tParY = ((e.clientX - r.left) / r.width - 0.5) * 10;
         tParX = ((e.clientY - r.top) / r.height - 0.5) * -7;
+        bangun();
       }, { passive: true });
-      hero.addEventListener("mouseleave", function () { tParX = 0; tParY = 0; });
+      hero.addEventListener("mouseleave", function () { tParX = 0; tParY = 0; bangun(); });
     }
 
     // hentikan total saat tab tak aktif ATAU panggung tak terlihat
     function aturJalan(hidup) {
-      if (hidup && !jalan) { jalan = true; requestAnimationFrame(putaran); }
-      if (!hidup) jalan = false;
+      if (hidup) bangun();
+      else jalan = false;
     }
     document.addEventListener("visibilitychange", function () {
       aturJalan(!document.hidden);
@@ -186,12 +202,13 @@
       }, { threshold: 0.02 }).observe(scene);
     }
 
-    requestAnimationFrame(putaran);
+    // sapukan sudut awal sekali, lalu tidur — panggung terbentuk tanpa loop konstan
+    bangun();
   }
 
   /* ---------- kartu karya: efek miring mengikuti kursor ---------- */
   function pasangTilt() {
-    if (hemat || !window.matchMedia("(pointer: fine)").matches) return;
+    if (hemat || gerakMinim || !window.matchMedia("(pointer: fine)").matches) return;
     Array.prototype.forEach.call(document.querySelectorAll(".kartu"), function (kartu) {
       if (kartu.dataset.tilt) return;   // jangan dipasang dua kali
       kartu.dataset.tilt = "1";
