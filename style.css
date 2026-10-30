@@ -790,7 +790,7 @@ html.mode-hemat .stage { transform: rotateX(9deg) rotateY(-16deg); }
   display: grid;
   place-items: center;
   cursor: pointer;
-  animation: pembukaTutup .68s cubic-bezier(.75, 0, .25, 1) 1.38s forwards;
+  animation: pembukaTutup .5s cubic-bezier(.75, 0, .25, 1) .95s forwards;
 }
 .pembuka-kertas {
   text-align: center;
@@ -810,35 +810,35 @@ html.mode-hemat .stage { transform: rotateX(9deg) rotateY(-16deg); }
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: .88;
-  animation: tulisHuruf .3s ease forwards;
+  animation: tulisHuruf .26s ease forwards;
 }
-/* jeda antar goresan — terasa ditulis huruf per huruf */
-.pembuka-tulis path:nth-child(1)  { animation-delay: .20s; }
-.pembuka-tulis path:nth-child(2)  { animation-delay: .26s; }
-.pembuka-tulis path:nth-child(3)  { animation-delay: .32s; }
-.pembuka-tulis path:nth-child(4)  { animation-delay: .38s; }
-.pembuka-tulis path:nth-child(5)  { animation-delay: .44s; }
-.pembuka-tulis path:nth-child(6)  { animation-delay: .50s; }
-.pembuka-tulis path:nth-child(7)  { animation-delay: .56s; }
-.pembuka-tulis path:nth-child(8)  { animation-delay: .62s; }
-.pembuka-tulis path:nth-child(9)  { animation-delay: .68s; }
-.pembuka-tulis path:nth-child(10) { animation-delay: .74s; }
-.pembuka-tulis path:nth-child(11) { animation-delay: .80s; }
-.pembuka-tulis path:nth-child(12) { animation-delay: .86s; }
+/* jeda antar goresan — terasa ditulis huruf per huruf (diringkas) */
+.pembuka-tulis path:nth-child(1)  { animation-delay: .12s; }
+.pembuka-tulis path:nth-child(2)  { animation-delay: .17s; }
+.pembuka-tulis path:nth-child(3)  { animation-delay: .21s; }
+.pembuka-tulis path:nth-child(4)  { animation-delay: .26s; }
+.pembuka-tulis path:nth-child(5)  { animation-delay: .30s; }
+.pembuka-tulis path:nth-child(6)  { animation-delay: .35s; }
+.pembuka-tulis path:nth-child(7)  { animation-delay: .39s; }
+.pembuka-tulis path:nth-child(8)  { animation-delay: .44s; }
+.pembuka-tulis path:nth-child(9)  { animation-delay: .48s; }
+.pembuka-tulis path:nth-child(10) { animation-delay: .53s; }
+.pembuka-tulis path:nth-child(11) { animation-delay: .57s; }
+.pembuka-tulis path:nth-child(12) { animation-delay: .62s; }
 
 .pembuka-pensil {
   width: 26px;
   height: 26px;
   color: var(--tinta);
   margin: 12px auto 0;
-  animation: pensilNulis .9s ease-in-out .2s, pensilAngkat .45s ease 1.12s forwards;
+  animation: pensilNulis .7s ease-in-out .12s, pensilAngkat .4s ease .75s forwards;
 }
 .pembuka-teks {
   font-family: "Caveat", cursive;
   font-size: 1.3rem;
   color: var(--tinta-lembut);
   margin-top: 6px;
-  animation: munculLembut .4s ease .95s both;
+  animation: munculLembut .3s ease .68s both;
 }
 
 @keyframes tulisHuruf { to { stroke-dashoffset: 0; } }
@@ -855,27 +855,27 @@ html.mode-hemat .stage { transform: rotateX(9deg) rotateY(-16deg); }
 
 /* ---------- masuk berjenjang setelah pembuka terangkat ---------- */
 .hero-teks > * {
-  animation: masukHalus .65s cubic-bezier(.2, .7, .3, 1) both;
+  animation: masukHalus .55s cubic-bezier(.2, .7, .3, 1) both;
 }
-.hero-teks > *:nth-child(1) { animation-delay: 1.45s; }
-.hero-teks > *:nth-child(2) { animation-delay: 1.51s; }
-.hero-teks > *:nth-child(3) { animation-delay: 1.57s; }
-.hero-teks > *:nth-child(4) { animation-delay: 1.65s; }
-.hero-teks > *:nth-child(5) { animation-delay: 1.75s; }
+.hero-teks > *:nth-child(1) { animation-delay: .60s; }
+.hero-teks > *:nth-child(2) { animation-delay: .66s; }
+.hero-teks > *:nth-child(3) { animation-delay: .72s; }
+.hero-teks > *:nth-child(4) { animation-delay: .80s; }
+.hero-teks > *:nth-child(5) { animation-delay: .92s; }
 /* huruf "RusianArt" di judul digambar belakangan, serasi dengan cascade */
-html.js .coret-nama.muncul path { transition-delay: 1.7s; }
+html.js .coret-nama.muncul path { transition-delay: 1.15s; }
 
 .paper {
-  animation: kertasMasuk .72s cubic-bezier(.25, .8, .35, 1) both;
+  animation: kertasMasuk .6s cubic-bezier(.25, .8, .35, 1) both;
 }
 /* kartu terdekat (lettering) dulu, lalu sisanya bergiliran */
-.stage .paper:nth-child(7) { animation-delay: 1.52s; }
-.stage .paper:nth-child(1) { animation-delay: 1.60s; }
-.stage .paper:nth-child(2) { animation-delay: 1.68s; }
-.stage .paper:nth-child(3) { animation-delay: 1.76s; }
-.stage .paper:nth-child(4) { animation-delay: 1.84s; }
-.stage .paper:nth-child(5) { animation-delay: 1.92s; }
-.stage .paper:nth-child(6) { animation-delay: 2.00s; }
+.stage .paper:nth-child(7) { animation-delay: 1.05s; }
+.stage .paper:nth-child(1) { animation-delay: 1.13s; }
+.stage .paper:nth-child(2) { animation-delay: 1.21s; }
+.stage .paper:nth-child(3) { animation-delay: 1.29s; }
+.stage .paper:nth-child(4) { animation-delay: 1.37s; }
+.stage .paper:nth-child(5) { animation-delay: 1.45s; }
+.stage .paper:nth-child(6) { animation-delay: 1.53s; }
 
 @keyframes masukHalus {
   from { opacity: 0; translate: 0 22px; }
@@ -897,6 +897,14 @@ html.lompati-pembuka .coret path { transition-delay: 0s !important; }
 
 /* kunci gulir selama koreografi (dilepas JS; tanpa JS: bebas gulir) */
 html.kunci body { overflow: hidden; }
+
+/* ---------- seksi di bawah lipatan dirender saat mendekat ---------- */
+html.js #tentang,
+html.js #karya,
+html.js #kontak {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   #pembuka { display: none; }
