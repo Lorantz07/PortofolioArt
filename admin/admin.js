@@ -281,7 +281,7 @@
       var url = URL.createObjectURL(file);
       img.onload = function () {
         try {
-          var maks = 1600;
+          var maks = 1200;
           var skala = Math.min(1, maks / Math.max(img.naturalWidth, img.naturalHeight));
           var kanvas = document.createElement("canvas");
           kanvas.width = Math.max(1, Math.round(img.naturalWidth * skala));
