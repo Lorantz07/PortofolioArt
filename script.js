@@ -42,7 +42,7 @@
     html.classList.add("kunci");
     window.setTimeout(function () {
       html.classList.remove("kunci");
-    }, 1450);
+    }, 1000);
     if (pembuka) {
       pembuka.addEventListener("click", function () {
         html.classList.add("lompati-pembuka");
